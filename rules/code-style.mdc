@@ -6,6 +6,9 @@
 - Add JSDoc comments for complex functions
 - Prefer const over let
 - I prefer const over let
+- Avoid unnecessary re-assignment. Use `const` for most cases
+- Prefer Immutability and Functional style of coding.
+- Put wrap complex related business logic into a functions
 - don't use .forEach loop
 
 ## Date Manipulation
