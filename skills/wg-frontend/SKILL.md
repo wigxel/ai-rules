@@ -76,6 +76,7 @@ description: Frontend development rules and patterns for Next.js/React projects
 - Add colors to the theme (Tailwind CSS config) if they don't exist
 - Use small, composable components over large monolithic ones
 - Use `cn` helper for conditional and dynamic classname concatenation
+- Use shadcn component `variant` props (e.g. `variant="destructive"`, `size="sm"`, `asChild`) instead of custom CSS classes — applies to Button, Badge, Alert, Card, Input, Label, and all other shadcn components
 
 ### Layout
 - Every form must be in a section/dialog/card/sheet/drawer
