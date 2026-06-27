@@ -293,3 +293,6 @@ export { ButtonGroup } from "./button-group";
 export const Button = Object.assign(ButtonRoot, { Group: ButtonGroup });
 // Usage: <Button.Group>
 ```
+
+### cleanup
+- run format script after make changes. `bun format`, `pnpm format`
