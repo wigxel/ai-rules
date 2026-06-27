@@ -11,7 +11,7 @@
   encloses business logic (mutation, loading, error handling, form state), it
   should be its own standalone component that wraps the trigger as `children`.
 - The wrapper owns all overlay state (`open`/`onOpenChange`), mutation hooks,
-  form state (e.g., `comment`), loading via `useAsyncLoader` + `attachLoader`,
+  form state (e.g., `comment`), loading via hooks eg (`useMutation`),
   and toast calls. Keep wrapper components in the same module as the parent
   unless reused across multiple features.
 - The parent renders only the trigger element as a child of the wrapper —
@@ -76,8 +76,7 @@
 - **When NOT to use this pattern:** If the parent needs to coordinate
   open/close state across siblings (e.g., "only one dialog open at a time",
   "close all on escape"), lift `open`/`onOpenChange` to the parent instead.
-- If the overlay has multiple independent async actions, give each its own
-  `useAsyncLoader` call or use distinct keys.
+- If the overlay has multiple independent async actions, give each its own hook eg (`useMutation`) call or use distinct keys.
 
 ## React Components
 - Extract `.map()` rendering into a dedicated Item component **when the map closure exceeds 15 lines**. Simpler inline maps (e.g., basic list items, dropdown options) are acceptable.
