@@ -55,6 +55,7 @@ description: Frontend development rules and patterns for Next.js/React projects
 > See [react.mdc](./react.mdc) for full details.
 
 ### UI Guidelines
+- Always use `rem` units for spacing, sizing, and typography — never `px`
 > See [ui.mdc](./ui.mdc) for full details.
 
 ### Layout
