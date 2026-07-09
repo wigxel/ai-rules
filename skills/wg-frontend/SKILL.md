@@ -144,6 +144,9 @@ Prefer shadcn `Skeleton` component for loading.
 - Path: `hooks/`
 - Use for reusable state/logic
 
+### Error Handling
+> See [friendly-errors.md](./friendly-errors.md) for user-friendly error patterns.
+
 ### State Management
 - **TanStack Query**: server state, API calls
 - **React useState**: local component state
