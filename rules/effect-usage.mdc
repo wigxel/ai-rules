@@ -71,3 +71,40 @@ This rule should be enforced during code reviews and can be checked with ESLint 
 
 ## Omissions
 - Doesn't apply to Convex Queries
+
+## Readability
+- Use standalone `pipe(...)` not method-style `.pipe(...)` for simple sequential chains. Import from `effect`: `import { pipe, Effect } from "effect"`.
+- When business logic gets complex (deep nesting), switch to `Effect.gen` / `yield*` for readability.
+- Place `runPromise` as the last argument in the pipe chain: `pipe(Drizzle, Effect.flatMap(...), runPromise)` instead of `runPromise(pipe(...))`.
+- Use `Effect.die` for unrecoverable errors (e.g., invariant violations in route guards).
+- **`pipe` + `runPromise` with multi-line effects**: When the effect argument to
+  `pipe` is an `Effect.gen` block (or any expression exceeding 2 lines), assign
+  it to a variable first, then pass it directly to `runPromise` — skip `pipe`
+  entirely.
+
+  ```ts
+  // ❌ Avoid — gen block inlined inside pipe, exceeds 2 lines
+  return await pipe(
+    Effect.gen(function* () {
+      const [entry] = yield* Query.effect((db) => ...);
+      if (!entry) return yield* Effect.die(...);
+      yield* Query.effect((db) => db.delete(...));
+      return { success: true };
+    }),
+    runPromise,
+  );
+
+  // ✅ Assign to variable, call runPromise directly
+  const effect = Effect.gen(function* () {
+    const [entry] = yield* Query.effect((db) => ...);
+    if (!entry) return yield* Effect.die(...);
+    yield* Query.effect((db) => db.delete(...));
+    return { success: true };
+  });
+
+  return await runPromise(effect);
+  ```
+
+- **Two-arg `pipe`**: When `pipe` has exactly 2 arguments (the effect and
+  `runPromise`), use `runPromise(effect)` directly instead of `pipe(effect,
+runPromise)`.
