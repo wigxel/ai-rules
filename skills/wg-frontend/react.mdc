@@ -73,6 +73,22 @@
   }
   ```
 
+- When the trigger lives inside another overlay's content (e.g., a
+  `DropdownMenuItem` in a `DropdownMenu`/`Select` popover), the popover will
+  close on selection by default. Keep the popover open by preventing the
+  select default on the item:
+  ```tsx
+  <DropdownMenuItem
+    asChild
+    onSelect={(evt) => evt.preventDefault()}
+  >
+    <DeleteAlert id={record._id}>
+      <span>Delete</span>
+    </DeleteAlert>
+  </DropdownMenuItem>
+  ```
+  Note: the wrapper's trigger must be the direct child of the item (no
+  intermediate wrapper), so the `onSelect` fires on the same element.
 - **When NOT to use this pattern:** If the parent needs to coordinate
   open/close state across siblings (e.g., "only one dialog open at a time",
   "close all on escape"), lift `open`/`onOpenChange` to the parent instead.
