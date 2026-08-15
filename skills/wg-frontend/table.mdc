@@ -1,12 +1,12 @@
 # Table Component Rules
 
 ## Overview
-All tables must use TanStack Table via the `AppDataTable` wrapper component from `@/components/DataTable`. Column definitions must be defined at module scope, never inside a component's render function.
+All tables must be rendered through a standard, reusable wrapper built on TanStack Table. First check the codebase for an existing wrapper; if one exists (e.g. `AppDataTable` at `@/components/DataTable`), use it. If none exists, create one named `AppDataTable` using `@tanstack/react-table` and place it under `components/` (e.g. `components/data-table.tsx`, kebab-case). Column definitions must be defined at module scope, never inside a component's render function.
 
 ## Rules
 
-### 1. Use `AppDataTable` Only
-Use the `AppDataTable` component for all table rendering. Never import or use `useReactTable`, `flexRender`, `getCoreRowModel`, or raw TanStack Table components (`<Table>`, `<TableHeader>`, `<TableBody>`, `<TableRow>`, `<TableCell>`) directly. Those are internal to `AppDataTable`.
+### 1. Find or Create `AppDataTable`
+Before rendering a table, locate the existing standard table wrapper in the codebase. If present, use it for all table rendering. If absent, create `AppDataTable` (a TanStack Table wrapper) once and reuse it. Never import or use `useReactTable`, `flexRender`, `getCoreRowModel`, or raw TanStack Table components (`<Table>`, `<TableHeader>`, `<TableBody>`, `<TableRow>`, `<TableCell>`) directly — those are internal to the `AppDataTable` wrapper. Feature code imports only `AppDataTable`.
 
 ### 2. Column Definitions in Outer Scope
 Column definitions must be defined outside the component scope as module-level `const` or a `createColumns()` factory function. Never define `ColumnDef<T>[]` inside a component render.
